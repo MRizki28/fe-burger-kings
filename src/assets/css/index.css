@@ -1,0 +1,13 @@
+.nav-bg {
+    background-color: #2d2d2d;
+}
+
+@font-face {
+    font-family: flame-reguler;
+    src: url("/public/assets/fonts/flame-font/FlameRegular.otf");
+}
+
+@font-face {
+    font-family: flame-bold;
+    src: url("/public/assets/fonts/flame-font/FlameBold.otf");
+}
