@@ -11,3 +11,8 @@
     font-family: flame-bold;
     src: url("/public/assets/fonts/flame-font/FlameBold.otf");
 }
+
+.box {
+    box-shadow: 2px 2px 15px -4px #6b6b6b;
+    box-sizing: border-box;
+}
