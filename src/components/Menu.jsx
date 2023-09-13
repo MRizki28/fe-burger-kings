@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     Card,
     CardHeader,
@@ -52,16 +52,40 @@ const products = [
         description: "Wireless earbuds with great sound quality and long battery life .",
         image: "assets/img/menu/menu1.jpg",
     },
-    
-    
+
+
 ];
 const MenuBase = () => {
+
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        // Fungsi untuk mengupdate lebar layar saat layar diubah
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+
+        // Tambahkan event listener untuk mengawasi perubahan lebar layar
+        window.addEventListener("resize", handleResize);
+
+        // Bersihkan event listener saat komponen tidak digunakan lagi
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    // Tentukan apakah deskripsi harus disembunyikan atau tidak berdasarkan lebar layar
+    const isDescriptionHidden = screenWidth >= 390 && screenWidth <= 768;
+
     return (
+
+
+
         <div className="container mx-auto px-4 2xl:px-56 pt-10 pb-16">
             <div className="header text-center">
                 <h2 className="font-flameBold text-[32px] text-[#8b542f]">Menus</h2>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {products.map((product) => (
                     <div key={product.id} className="flex justify-center items-center">
                         <Card className="w-full bg-[#fff] box flex flex-col" style={{ height: '100%' }}>
@@ -73,23 +97,23 @@ const MenuBase = () => {
                                 />
                             </CardHeader>
                             <CardBody>
-                                <div className="mb-2 flex items-center justify-between">
-                                    <Typography  className="font-medium  text-[#8b542f] text-[21px] font-flameBold">
+                                <div className="mb-2 grid md:flex items-center justify-between">
+                                    <Typography className="font-medium  text-[#8b542f] text-[21px] font-flameBold">
                                         {product.name}
                                     </Typography>
-                                    <Typography  className="font-medium text-[#8b542f] text-[21px] font-flameBold">
+                                    <Typography className="font-medium text-[#8b542f] text-[21px] font-flameBold">
                                         {product.price}
                                     </Typography>
                                 </div>
                                 <Typography
                                     variant="small"
                                     color="gray"
-                                    className="font-normal opacity-75"
+                                    className={`font-normal opacity-75 ${isDescriptionHidden ? 'hidden' : ''}`}
                                 >
                                     {product.description}
                                 </Typography>
                             </CardBody>
-                            <div className="flex-grow"></div> 
+                            <div className="flex-grow"></div>
                             <CardFooter className="pt-0">
                                 <Button
                                     ripple={false}
@@ -103,6 +127,7 @@ const MenuBase = () => {
                     </div>
                 ))}
             </div>
+
         </div>
     );
 };
