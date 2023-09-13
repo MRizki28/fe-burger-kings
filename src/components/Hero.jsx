@@ -8,7 +8,7 @@ const settings = {
     slidesToScroll: 1,
     infinite: true,
     autoplay: true,
-    speed: 1000,
+    speed: 500,
     autoplaySpeed: 3000,
     arrows: false,
     dots: true,
