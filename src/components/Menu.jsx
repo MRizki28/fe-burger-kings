@@ -89,7 +89,7 @@ const MenuBase = () => {
                 {products.map((product) => (
                     <div key={product.id} className="flex justify-center items-center">
                         <Card className="w-full bg-[#fff] box flex flex-col" style={{ height: '100%' }}>
-                            <CardHeader shadow={false} floated={false} className="h-[13rem]">
+                            <CardHeader shadow={false} floated={false} className="h-[9rem] md:h-[13rem]">
                                 <img
                                     src={product.image}
                                     alt="card-image"
