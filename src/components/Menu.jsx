@@ -75,7 +75,7 @@ const MenuBase = () => {
     }, []);
 
     // Tentukan apakah deskripsi harus disembunyikan atau tidak berdasarkan lebar layar
-    const isDescriptionHidden = screenWidth >= 390 && screenWidth <= 768;
+    const isDescriptionHidden = screenWidth >= 200 && screenWidth <= 768;
 
     return (
 
