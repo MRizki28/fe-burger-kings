@@ -16,3 +16,11 @@
     box-shadow: 2px 2px 15px -4px #6b6b6b;
     box-sizing: border-box;
 }
+
+/* Footer CSS */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  
