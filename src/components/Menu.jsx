@@ -32,12 +32,12 @@ const MenuBase = () => {
     useEffect(() => {
         axios.get("http://localhost:8000/api/v2/menu")
             .then(res => {
-                console.log(res);
+                console.log('data disini', res);
                 setDataMenu(res.data.data)
             }).catch(
                 err => console.log(err)
             )
-    },[])
+    }, [])
     return (
         <div className="container mx-auto px-4 2xl:px-56 pt-10 pb-16">
             <div className="header text-center">
@@ -49,7 +49,7 @@ const MenuBase = () => {
                         <Card className="w-full bg-[#fff] box flex flex-col" style={{ height: '100%' }}>
                             <CardHeader shadow={false} floated={false} className="h-[9rem] md:h-[13rem]">
                                 <img
-                                    src={data.image}
+                                    src={`http://localhost:8000/api/v2/menu/gambar-menu/${data.gambar_menu}`}
                                     alt="card-image"
                                     className="h-full w-full object-cover  hover:scale-110 transform transition-transform duration-300 ease-in-out rounded-2xl"
                                 />
