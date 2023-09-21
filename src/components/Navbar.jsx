@@ -3,9 +3,9 @@ import {
     Navbar,
     Collapse,
     Typography,
-    Button,
     IconButton,
 } from "@material-tailwind/react";
+import { Link as ScrollLink } from "react-scroll";
 
 const NavBar = () => {
     const [openNav, setOpenNav] = React.useState(false);
@@ -25,10 +25,10 @@ const NavBar = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex font-flameReguler text-[13px] flex-col ">
+                <ScrollLink to="menu" style={{ cursor: "pointer" }} smooth={true} duration={500} offset={-100} className="flex font-flameReguler text-[13px] flex-col">
                     <span className="block text-[#faaf18]">Delivery</span>
                     <span className="font-flameBold text-[25px] mt-[-5px]">Order</span>
-                </a>
+                </ScrollLink>
             </Typography>
             <Typography
                 as="li"
@@ -36,10 +36,10 @@ const NavBar = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex font-flameReguler text-[13px] flex-col ">
-                    <span className="block text-[#faaf18]">GetFresh</span>
-                    <span className="font-flameBold text-[25px] mt-[-5px]">Promotions</span>
-                </a>
+                 <ScrollLink to="footer" style={{ cursor: "pointer" }} smooth={true} duration={500} offset={-100} className="flex font-flameReguler text-[13px] flex-col">
+                    <span className="block text-[#faaf18]">Location</span>
+                    <span className="font-flameBold text-[25px] mt-[-5px]">Contact</span>
+                </ScrollLink>
             </Typography>
             <Typography
                 as="li"
@@ -66,11 +66,7 @@ const NavBar = () => {
                     <img src="/assets/img/logo/burger-king.png" className="w-[40%] h-[40%] lg:w-[60%] lg:h-[60%]" alt="" />
                 </Typography>
                 <div className="hidden lg:block">{navList}</div>
-                <a href="" className="hidden lg:inline-block
-                ">
-                    <span className="font-flameBold mr-5">LOGIN</span>
-                    <span className="">Cart</span>
-                </a>
+
                 <IconButton
                     variant="text"
                     className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -112,7 +108,6 @@ const NavBar = () => {
             <Collapse open={openNav}>
                 <div className="container mx-auto mb-5">
                     {navList}
-                    <a href="" className="font-flameBold ">Login</a>
                 </div>
             </Collapse>
         </Navbar>

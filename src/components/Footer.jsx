@@ -3,10 +3,10 @@ import React from "react";
 
 const FooterBase = () => {
     return (
-        <footer className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12  py-6 text-center md:justify-between nav-bg">
+        <footer className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12  py-6 text-center md:justify-between nav-bg" id="footer">
             <div className="container mx-auto px-4 lg:px-80">
             <Typography color="blue-gray" className="font-normal font-flameReguler lg:text-[20px] text-white text-center">
-                BURGER KING® DELIVERY
+                BURGER KAPTEN® DELIVERY
             </Typography>
             <ul className="flex flex-wrap items-center justify-center gap-y-2 gap-x-8">
                 <li>

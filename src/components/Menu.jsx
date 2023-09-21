@@ -6,13 +6,67 @@ import {
     CardFooter,
     Typography,
     Button,
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+    Avatar,
+    IconButton,
 } from "@material-tailwind/react";
-import axios from "axios";
 
+import Loader, { Circles } from "react-loader-spinner";
+
+
+
+const products = [
+    {
+        id: 1,
+        name: "Double Mantul",
+        price: "Rp.50.000",
+        description: "With plenty of talk and listen time, voice-activated Siri access, and an available wireless charging case.",
+        image: "assets/img/menu/burger3.jpg",
+    },
+    {
+        id: 2,
+        name: "Gold Collections",
+        price: "Rp.35.000",
+        description: "Wireless earbuds with great sound quality and long battery life.Wireless earbuds with great sound quality and long battery life.Wireless earbuds with great sound quality and long battery life.",
+        image: "assets/img/menu/burger4.jpg",
+    },
+    {
+        id: 3,
+        name: "Chease Burger",
+        price: "Rp.90.000",
+        description: "Wireless earbuds with great sound quality and long battery life .",
+        image: "assets/img/menu/burger4.jpg",
+    },
+    {
+        id: 3,
+        name: "Chease Burger",
+        price: "Rp.90.000",
+        description: "Wireless earbuds with great sound quality and long battery life .",
+        image: "assets/img/menu/burger4.jpg",
+    },
+    {
+        id: 3,
+        name: "Chease Burger",
+        price: "Rp.90.000",
+        description: "Wireless earbuds with great sound quality and long battery life .",
+        image: "assets/img/menu/burger3.jpg",
+    },
+    {
+        id: 3,
+        name: "Chease Burger",
+        price: "Rp.90.000",
+        description: "Wireless earbuds with great sound quality and long battery life .",
+        image: "assets/img/menu/burger3.jpg",
+    },
+
+
+];
 const MenuBase = () => {
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-    const [menuData, setDataMenu] = useState([]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -28,65 +82,102 @@ const MenuBase = () => {
 
     const isDescriptionHidden = screenWidth >= 200 && screenWidth <= 768;
 
+    const [open, setOpen] = React.useState(false);
+    const [selectedProduct, setSelectedProduct] = React.useState(null);
 
-    useEffect(() => {
-        axios.get("http://localhost:8000/api/v2/menu")
-            .then(res => {
-                console.log('data disini', res);
-                setDataMenu(res.data.data)
-            }).catch(
-                err => console.log(err)
-            )
-    }, [])
+
+    const handleOpen = (product) => {
+        setSelectedProduct(product);
+        setOpen((cur) => !cur);
+    };
+
+    const [isLoading, setIsLoading] = useState(false); // Tambahkan state isLoading
+
+    const handleBuyClick = () => {
+        setIsLoading(true); // Mengatur isLoading menjadi true saat tombol "BUY" diklik
+        // Lakukan operasi pembelian atau navigasi ke WhatsApp di sini
+        // Setelah selesai atau jika terjadi kesalahan, atur isLoading kembali menjadi false
+    };
+
     return (
-        <div className="container mx-auto px-4 2xl:px-56 pt-10 pb-16">
-            <div className="header text-center">
-                <h2 className="font-flameBold text-[32px] text-[#8b542f]">Menus</h2>
-            </div>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                {menuData.map((data, index) => (
-                    <div key={index} className="flex justify-center items-center">
-                        <Card className="w-full bg-[#fff] box flex flex-col" style={{ height: '100%' }}>
-                            <CardHeader shadow={false} floated={false} className="h-[9rem] md:h-[13rem]">
+        <>
+            <div className="container mx-auto px-4 2xl:px-56 pt-10 pb-16" id="menu">
+                <div className="header text-center">
+                    <h2 className="font-flameBold text-[32px] text-[#8b542f]">Menus</h2>
+                </div>
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                    {products.map((product) => (
+                        <div key={product.id} className="flex justify-center items-center">
+                            <Card className="w-full bg-[#fff] box flex flex-col" style={{ height: '100%' }}>
+                                <CardHeader shadow={false} floated={false} className="h-[9rem] md:h-[13rem]">
+                                    <img
+                                        src={product.image}
+                                        alt="card-image"
+                                        className="h-full w-full object-cover"
+                                        onClick={() => handleOpen(product)}
+                                    />
+                                </CardHeader>
+                                <CardBody>
+                                    <div className="mb-2 grid md:flex items-center justify-between">
+                                        <Typography className="font-medium  text-[#8b542f] text-[21px] font-flameBold">
+                                            {product.name}
+                                        </Typography>
+                                        <Typography className="font-medium text-[#8b542f] text-[21px] font-flameBold">
+                                            {product.price}
+                                        </Typography>
+                                    </div>
+                                    <Typography
+                                        variant="small"
+                                        color="gray"
+                                        className={`font-normal opacity-75 ${isDescriptionHidden ? 'hidden' : ''}`}
+                                    >
+                                        {product.description}
+                                    </Typography>
+                                </CardBody>
+                                <div className="flex-grow"></div>
+                                <CardFooter className="pt-0">
+                                    <Button
+                                        ripple={false}
+                                        fullWidth={true}
+                                        className={`bg-[#ed7801] text-white text-[16px] font-flameReguler shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 ${isLoading ? "cursor-not-allowed" : ""}`}
+                                        onClick={handleBuyClick}
+                                        disabled={isLoading} // Mengatur tombol menjadi tidak dapat di-klik jika isLoading true
+                                    >
+                                        {isLoading ? (
+                                            <div className="flex items-center justify-center">
+                                                <Circles
+                                                    type="Oval" // Jenis spinner yang digunakan (contoh: Oval)
+                                                    color="#fff" // Warna spinner
+                                                    height={24} // Tinggi spinner
+                                                    width={24} // Lebar spinner
+                                                />
+                                            </div>
+                                        ) : (
+                                            "BUY"
+                                        )}
+                                    </Button>
+                                </CardFooter>
+
+                            </Card>
+                        </div>
+                    ))}
+                    <Dialog size="xl" open={open} handler={handleOpen}>
+                        <DialogBody divider={true} className="p-0 mb-10 mt-10">
+                            {selectedProduct && (
                                 <img
-                                    src={`http://localhost:8000/api/v2/menu/gambar-menu/${data.gambar_menu}`}
-                                    alt="card-image"
-                                    className="h-full w-full object-cover  hover:scale-110 transform transition-transform duration-300 ease-in-out rounded-2xl"
+                                    alt="nature"
+                                    className="lg:h-[48rem] w-full object-cover object-center"
+                                    src={selectedProduct.image}
                                 />
-                            </CardHeader>
-                            <CardBody>
-                                <div className="mb-2 grid md:flex items-center justify-between">
-                                    <Typography className="font-medium  text-[#8b542f] text-[21px] font-flameBold">
-                                        {data.nama_menu}
-                                    </Typography>
-                                    <Typography className="font-medium text-[#8b542f] text-[21px] font-flameBold">
-                                        {data.harga}
-                                    </Typography>
-                                </div>
-                                <Typography
-                                    variant="small"
-                                    color="gray"
-                                    className={`font-normal opacity-75 font-flameReguler lg:text-[16px] text-[#502314] ${isDescriptionHidden ? 'hidden' : ''}`}
-                                >
-                                    {data.description}
-                                </Typography>
-                            </CardBody>
-                            <div className="flex-grow"></div>
-                            <CardFooter className="pt-0">
-                                <Button
-                                    ripple={false}
-                                    fullWidth={true}
-                                    className="bg-[#ed7801] text-white text-[16px] font-flameReguler shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-                                >
-                                    BUY
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    </div>
-                ))}
+                            )}
+                        </DialogBody>
+                    </Dialog>
+                </div>
             </div>
 
-        </div>
+
+        </>
+
     );
 };
 
