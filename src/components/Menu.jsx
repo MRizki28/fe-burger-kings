@@ -103,9 +103,7 @@ const MenuBase = () => {
     }, [whatsAppWindow]);
 
     const handleBuyClick = (product) => {
-        setIsLoading(true); // Mengatur isLoading menjadi true saat tombol "BUY" diklik
-        // Lakukan operasi pembelian atau navigasi ke WhatsApp di sini
-        // Setelah selesai atau jika terjadi kesalahan, buka jendela WhatsApp dan tetapkan referensi ke whatsAppWindow
+        setIsLoading(true); 
         const whatsappURL = `https://api.whatsapp.com/send?phone=082290333669&text=Halo%20Saya%20mau%20pesan%20${encodeURIComponent(` ${product.name}`)}`;
         const whatsappWindow = window.open(whatsappURL, "_blank");
         setWhatsAppWindow(whatsappWindow);
