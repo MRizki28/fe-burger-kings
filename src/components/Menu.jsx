@@ -91,12 +91,24 @@ const MenuBase = () => {
         setOpen((cur) => !cur);
     };
 
-    const [isLoading, setIsLoading] = useState(false); // Tambahkan state isLoading
+    const [isLoading, setIsLoading] = useState(false); 
+    const [whatsAppWindow, setWhatsAppWindow] = useState(null); 
 
-    const handleBuyClick = () => {
+    useEffect(() => {
+        if (whatsAppWindow) {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 3000);
+        }
+    }, [whatsAppWindow]);
+
+    const handleBuyClick = (product) => {
         setIsLoading(true); // Mengatur isLoading menjadi true saat tombol "BUY" diklik
         // Lakukan operasi pembelian atau navigasi ke WhatsApp di sini
-        // Setelah selesai atau jika terjadi kesalahan, atur isLoading kembali menjadi false
+        // Setelah selesai atau jika terjadi kesalahan, buka jendela WhatsApp dan tetapkan referensi ke whatsAppWindow
+        const whatsappURL = `https://api.whatsapp.com/send?phone=082290333669&text=Halo%20Saya%20mau%20pesan%20${encodeURIComponent(` ${product.name}`)}`;
+        const whatsappWindow = window.open(whatsappURL, "_blank");
+        setWhatsAppWindow(whatsappWindow);
     };
 
     return (
@@ -140,16 +152,16 @@ const MenuBase = () => {
                                         ripple={false}
                                         fullWidth={true}
                                         className={`bg-[#ed7801] text-white text-[16px] font-flameReguler shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 ${isLoading ? "cursor-not-allowed" : ""}`}
-                                        onClick={handleBuyClick}
-                                        disabled={isLoading} // Mengatur tombol menjadi tidak dapat di-klik jika isLoading true
+                                        onClick={() => handleBuyClick(product)} 
+                                        disabled={isLoading} 
                                     >
                                         {isLoading ? (
                                             <div className="flex items-center justify-center">
                                                 <Circles
-                                                    type="Oval" // Jenis spinner yang digunakan (contoh: Oval)
-                                                    color="#fff" // Warna spinner
-                                                    height={24} // Tinggi spinner
-                                                    width={24} // Lebar spinner
+                                                    type="Oval" 
+                                                    color="#fff"
+                                                    height={24} 
+                                                    width={24} 
                                                 />
                                             </div>
                                         ) : (
