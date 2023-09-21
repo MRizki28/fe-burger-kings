@@ -123,7 +123,7 @@ const MenuBase = () => {
                                     <img
                                         src={product.image}
                                         alt="card-image"
-                                        className="h-full w-full object-cover"
+                                        className="h-full w-full object-cover transform transition-transform hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
                                         onClick={() => handleOpen(product)}
                                     />
                                 </CardHeader>
